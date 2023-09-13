@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    {% for profile in profiles %}
+
+	  <main class="profile my-md">
+    <div class="container">
+      <div class="layout">
+        <div class="column column--1of1">
+          <div class="card text-center">
+            <div class="card__body dev">
+                <a href="{% url 'profile' profile.id %}">
+              <img class="avatar avatar--xl" src="{%static profile.profile_image.url %}" />
+              <h2 class="dev__name">{{ profile.name }}</h2>
+              <p class="dev__title">{{ profile.user }}</p>
+              <p class="dev__title">{{ profile.email }}</p>
+                </a>
+            </div>
+          </div>
+        </div>
+
+        </div>
+      </div>
+  </main>
+
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+	<section class="education" id="education">
+      <h2 class="heading">The <span class="title">Events</span></h2>
+
+      <div class="education-row">
+        <div class="education-column">
+          <div class="education-box">
+                {% for event in events %}
+                	<div class="education-content">
+                      <div class="content">
+                          <div class="text-part">
+                                                      <div class="year"><i class="bx bxs-calendar"></i>{{ event.date }} {{ event.time }}</div>
+                        <h4>{{ event.name }}</h4>
+                        <p>
+                          {{ event.description }}
+                        </p>
+                          </div>
+
+                          <img class="event-img" src="{% static event.image.url %}" alt="">
+                      </div>
+                    </div>
+                {% endfor %}
+
+          </div>
+        </div>
+              <div class="education-column">
+          <div class="education-box">
+                {% for event in user_events %}
+                	<div class="education-content">
+                      <div class="content">
+                          <div class="text-part">
+                          <div class="year"><i class="bx bxs-calendar"></i>{{ event.date}}  {{ event.time }}</div>
+                        <h4>{{ event.name }}</h4>
+                          <h3>{{ event.user_name }}</h3>
+                        <p>
+                          {{ event.description }}
+                        </p>
+                          </div>
+
+                          <img class="event-img" src="{% static event.image.url %}" alt="">
+                      </div>
+                    </div>
+                {% endfor %}
+
+          </div>
+        </div>
+        </div>
+    </section>
+{% endblock %}

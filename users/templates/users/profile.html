@@ -1,0 +1,84 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <main class="settingsPage profile my-md">
+    <div class="container">
+      <div class="layout">
+        <div class="column column--1of3">
+          <div class="card text-center">
+            <div class="card__body dev">
+
+              <img class="avatar avatar--xl dev__avatar" src="{% static profile.profile_image.url %}" />
+              <h2 class="dev__name">{{ profile.name }}</h2>
+              <p class="dev__title">Email: {{ profile.email }}</p>
+              <p class="dev__title">Username: {{profile.user}}</p>
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'edit-account' %}"><i class="im im-edit"></i> Edit</a>
+
+            </div>
+          </div>
+        </div>
+        <div class="column column--2of3">
+          <div class="settings">
+            <h3 class="settings__title">My Events</h3>
+            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'add-user-event' %}"><i class="im im-plus"></i> Add Event</a>
+          </div>
+
+          <table class="settings__table">
+              {% for event in events %}
+              	<tr>
+              <td class="settings__tableInfo">
+                <h4>{{ event }}</h4>
+                <p>
+                  {{ event.description }}
+                </p>
+              </td>
+              <td class="settings__tableActions">
+                <a class="tag tag--pill tag--main settings__btn" href="{% url 'update-user-event' event.id %}"><i class="im im-x-mark-circle-o"></i>
+                  Edit</a>
+                <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-user-event' event.id %}"><i class="im im-x-mark-circle-o"></i>
+                  Delete</a>
+              </td>
+            </tr>
+              {% endfor %}
+
+
+
+          </table>
+
+          <div class="settings">
+            <h3 class="settings__title">My Reviews</h3>
+
+          </div>
+
+          <table class="settings__table">
+              {% for review in reviews %}
+
+              	<tr>
+              <td class="settings__tableInfo">
+                <h4>{{ review.project }}</h4>
+                  <p>{{ review.title }}</p>
+
+                <p>
+                  {{ review.body }}
+                </p>
+                  <p>
+                  {{ review.value }} {% if review.value == 1 %}Star{% else %}Stars{% endif %}
+                </p>
+              </td>
+              <td class="settings__tableActions">
+                <a class="tag tag--pill tag--main settings__btn" href="{% url 'update-review' review.id%}"><i class="im im-edit"></i> Edit</a>
+                <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-review' review.id %}"><i class="im im-x-mark-circle-o"></i>
+                  Delete</a>
+              </td>
+            </tr>
+              {% endfor %}
+
+
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+{% endblock %}

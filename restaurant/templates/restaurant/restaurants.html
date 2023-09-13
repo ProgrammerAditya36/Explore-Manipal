@@ -1,0 +1,84 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+ <main class="projects restaurant">
+  <div class="restaurant-column-1">
+                <div class="hero-section__filter">
+           <form class="form" action="{% url 'restaurants' %}" method="get">
+                {% csrf_token %}
+       <div class="form__field">
+    <label for="formInput#facilities">Filter by Facilities</label>
+    <select class="input input--select res-select" id="formInput#facilities" name="facilities" multiple>
+        {% for facility in facilities %}
+            <option value="{{ facility.id }}">{{ facility.name }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="form__field">
+    <label for="formInput#open_days">Filter by Days Open</label>
+    <select class="input input--select res-select" id="formInput#open_days" name="open_days" multiple>
+        {% for open_day in open_days %}
+            <option value="{{ open_day.id }}">{{ open_day.day }}</option>
+        {% endfor %}
+    </select>
+</div>
+                <input class="btn btn--sub btn--lg" type="submit" value="Apply Filters" />
+            </form>
+        </div>
+</div>
+ <div class="restaurant-column-2">
+
+      <div class="container container--narrow">
+          <h2>Search For  Restaurants</h2>
+
+
+
+          <form class="form" action="{% url 'restaurants' %}" method="get">
+            <div class="form__field">
+              <input class="input input--text" id="formInput#search" type="text" name="search_query"
+                placeholder="Search by Name"  value="{{ search_query }}"/>
+            </div>
+
+            <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+          </form>
+        </div>
+
+
+     <section class="projectsList res-section">
+      <div class="container">
+        <div class="grid grid--three">
+            {% for restaurant in restaurants %}
+            	<div class="column">
+            <div class="card project restaurant-card">
+              <a href="{% url 'restaurant' restaurant.id %}" class="project">
+                <img class="project__thumbnail" src="{% static restaurant.main_image.url %}" alt="project thumbnail" />
+                <div class="card__body">
+                  <h3 class="project__title">{{restaurant.name}}</h3>
+                  <p class="project--rating">
+                     {{ restaurant.small_description }}
+                  </p>
+                  <div class="project__tags">
+                      {% for facility in restaurant.facilities.all %}
+                      	<span class="tag tag--pill tag--main">
+                      <small>{{ facility }}</small>
+                    </span>
+
+                      {% endfor %}
+
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+            {% endfor %}
+
+          </div>
+      </div>
+    </section>
+ </div>
+
+    <!-- Search Result: DevList -->
+
+  </main>
+{% endblock %}

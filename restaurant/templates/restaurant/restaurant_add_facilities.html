@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <h2>Add Facilities</h2>
+
+   <form class="form" method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in facility_form %}
+        <div class="form__field">
+        <label for="formInput#text">{{ field.label }}</label>
+        {{ field }}
+    </div>
+    {% endfor %}
+
+
+</form>
+  <h2>Restaurant Images</h2>
+
+     <form class="form" method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in image_upload_form %}
+        <div class="form__field">
+        <label for="formInput#text">{{ field.label }}</label>
+        {{ field }}
+    </div>
+    {% endfor %}
+
+
+
+
+    <!-- Input:Text -->
+
+    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Upload Images and Facilities" />
+</form>
+            </div>
+
+
+
+
+  <a href="{% url 'restaurant' restaurant.pk %}">Continue to Restaurant</a>
+{% endblock %}
